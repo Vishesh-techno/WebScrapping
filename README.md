@@ -8,6 +8,9 @@ This tool extracts the following elements from any public webpage:
 ✔ Videos  
 ✔ Hyperlinks 
 
+## 🚀 URL
+-  **URL** :- webscrapping-production-8d0e.up.railway.app
+
 
 ## 🚀 Features
 - Enter website URL and scrape all content instantly
@@ -21,12 +24,7 @@ This tool extracts the following elements from any public webpage:
     "links": [],
     "text": "..."
   }
-
-
   
-
-
-  **URL** :- webscrapping-production-8d0e.up.railway.app
 
 <img width="1494" height="934" alt="image" src="https://github.com/user-attachments/assets/0976d929-c00b-47d3-944c-aad3e915dab3" />
 
