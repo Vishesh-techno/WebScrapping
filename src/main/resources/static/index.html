@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Web Scraper | Tool</title>
+  <style>
+  * { box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f9f9f9;
+    display: flex;
+    flex-direction: column;  /* footer push logic */
+  }
+
+  /* Header */
+  header {
+    background: #222;
+    color: #fff;
+    padding: 18px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+  }
+
+  /* Main Container */
+  .container {
+    flex: 1;                          /* page fills full height */
+    max-width: 1100px;
+    width: 90%;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+  }
+
+  .input-area {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #aaa;
+  }
+
+  button {
+    padding: 10px 20px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  button:hover { background: #0056b3; }
+
+  /* Sections */
+  h3 { margin-top: 25px; }
+
+  /* fix links overflow */
+  #links li a {
+    word-break: break-all;  /* === FIX: links wrapping */
+    display: block;
+    padding: 4px 0;
+  }
+
+  img { max-width: 120px; margin: 5px; border-radius: 4px; border: 1px solid #ddd; }
+  video { max-width: 220px; margin: 5px; border-radius: 6px; }
+
+  .result-box {
+    margin-top: 25px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #fafafa;
+  }
+
+  .loader {
+    font-size: 18px;
+    color: green;
+    font-weight: bold;
+    display: none;
+  }
+
+  /* Footer always bottom */
+  footer {
+    background: #222;
+    color: white;
+    padding: 12px;
+    text-align: center;
+    margin-top: auto;
+  }
+</style>
+
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    🌐 Web Scraping Tool (Spring Boot + JSoup)
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <div class="container">
+    <div class="input-area">
+      <input type="text" id="url" placeholder="Enter website URL (https://example.com)" />
+      <button onclick="scrape()">Scrape</button>
+    </div>
+    
+    <p class="loader" id="loader">⏳ Scraping... Please wait...</p>
+
+    <div class="result-box" id="result" style="display:none;">
+      <h3>📌 Extracted Text</h3>
+      <p id="text"></p>
+
+      <h3>🔗 Links</h3>
+      <ul id="links"></ul>
+
+      <h3>🖼️ Images</h3>
+      <div id="images"></div>
+
+      <h3>🎥 Videos</h3>
+      <div id="videos"></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    © 2025 Web Scraper | Developed using Spring Boot & JSoup
+  </footer>
+
+
+<script>
+async function scrape() {
+  const url = document.getElementById("url").value;
+  if(!url) { alert("Please enter a URL"); return; }
+
+  document.getElementById("loader").style.display = "block";
+  document.getElementById("result").style.display = "none";
+
+  const response = await fetch(`/api/scrape?url=` + encodeURIComponent(url));
+  const data = await response.json();
+
+  document.getElementById("loader").style.display = "none";
+  document.getElementById("result").style.display = "block";
+
+  // Text
+  document.getElementById("text").innerText = data.text;
+
+  // Links
+  const linkList = document.getElementById("links");
+  linkList.innerHTML = "";
+  data.links.forEach(link => {
+    linkList.innerHTML += `<li><a href="${link}" target="_blank">${link}</a></li>`;
+  });
+
+  // Images
+  const imgDiv = document.getElementById("images");
+  imgDiv.innerHTML = "";
+  data.images.forEach(img => {
+    imgDiv.innerHTML += `<img src="${img}" />`;
+  });
+
+  // Videos
+  const vidDiv = document.getElementById("videos");
+  vidDiv.innerHTML = "";
+  data.videos.forEach(video => {
+    vidDiv.innerHTML += `<video src="${video}" controls></video>`;
+  });
+}
+</script>
+
+</body>
+</html>
