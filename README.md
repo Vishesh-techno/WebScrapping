@@ -27,6 +27,7 @@ This tool extracts the following elements from any public webpage:
   }
   
 
+## 🚀 Images
 <img width="1494" height="934" alt="image" src="https://github.com/user-attachments/assets/0976d929-c00b-47d3-944c-aad3e915dab3" />
 
 <img width="1351" height="896" alt="image" src="https://github.com/user-attachments/assets/c249706d-12d4-41d2-bfa2-487ba4e86cfd" />
